@@ -25,3 +25,7 @@ export const isIphoneX = () => {
     isIphoneWithNotch()
   );
 };
+
+export const HEADER_HEIGHT =
+  Platform.OS === 'ios' ? (isIphoneX() ? 88 : 76) : 56;
+export const HEIGHT_SCREEN_MIN_HEADER = dim.height - HEADER_HEIGHT;
