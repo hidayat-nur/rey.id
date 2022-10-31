@@ -13,12 +13,16 @@ import {IMG} from '../assets/images';
 import {HEIGHT_SCREEN_MIN_HEADER} from '../utils/global';
 import {COLORS} from '../styles/colors';
 import PockeCard from '../components/PockeCard';
-import BottomSheet, {BottomSheetBackdrop} from '@gorhom/bottom-sheet';
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetScrollView,
+} from '@gorhom/bottom-sheet';
+import PokeModal from '../components/PokeModal';
 
 const HomeScreen = () => {
   const scrollViewRef = useRef(null);
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ['30%', '30%', '30%'], []);
+  const snapPoints = useMemo(() => ['87%', '87%', '87%'], []);
 
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
@@ -33,7 +37,7 @@ const HomeScreen = () => {
 
   // renders
   const renderBackdrop = useCallback(
-    props => (
+    (props: any) => (
       <BottomSheetBackdrop
         {...props}
         disappearsOnIndex={1}
@@ -96,9 +100,9 @@ const HomeScreen = () => {
         backdropComponent={renderBackdrop}
         onChange={handleSheetChanges}
         enablePanDownToClose>
-        <View style={styles.contentContainer}>
-          <Text>Awesome 🎉</Text>
-        </View>
+        <BottomSheetScrollView style={styles.contentContainer}>
+          <PokeModal />
+        </BottomSheetScrollView>
       </BottomSheet>
     </View>
   );
@@ -196,6 +200,6 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    alignItems: 'center',
+    paddingHorizontal: 36,
   },
 });
