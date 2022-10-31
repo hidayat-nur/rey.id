@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useRef} from 'react';
 import Header from '../components/header';
 import {IMG} from '../assets/images';
 import {HEIGHT_SCREEN_MIN_HEADER} from '../utils/global';
@@ -15,11 +15,20 @@ import {COLORS} from '../styles/colors';
 import PockeCard from '../components/PockeCard';
 
 const HomeScreen = () => {
+  const scrollViewRef = useRef(null);
+
+  const onPokePress = () => {
+    scrollViewRef.current?.scrollTo({
+      y: HEIGHT_SCREEN_MIN_HEADER,
+      animated: true,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Header onPress={() => {}} />
 
-      <ScrollView>
+      <ScrollView ref={scrollViewRef}>
         <View style={styles.topContainer}>
           <Image source={IMG.pockeGroup} style={styles.pockeGroup} />
           <Text style={styles.pockeTitle}>
@@ -29,7 +38,7 @@ const HomeScreen = () => {
             Thousands of data compiled into one place
           </Text>
 
-          <TouchableOpacity onPress={() => {}} style={styles.pockeBtn}>
+          <TouchableOpacity onPress={onPokePress} style={styles.pockeBtn}>
             <Text style={styles.btnLabel}>Check PokèDex</Text>
           </TouchableOpacity>
         </View>
