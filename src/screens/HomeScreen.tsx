@@ -7,21 +7,44 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useRef} from 'react';
+import React, {useCallback, useMemo, useRef} from 'react';
 import Header from '../components/header';
 import {IMG} from '../assets/images';
 import {HEIGHT_SCREEN_MIN_HEADER} from '../utils/global';
 import {COLORS} from '../styles/colors';
 import PockeCard from '../components/PockeCard';
+import BottomSheet, {BottomSheetBackdrop} from '@gorhom/bottom-sheet';
 
 const HomeScreen = () => {
   const scrollViewRef = useRef(null);
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ['30%', '30%', '30%'], []);
+
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('handleSheetChanges', index);
+  }, []);
 
   const onPokePress = () => {
     scrollViewRef.current?.scrollTo({
       y: HEIGHT_SCREEN_MIN_HEADER,
       animated: true,
     });
+  };
+
+  // renders
+  const renderBackdrop = useCallback(
+    props => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={1}
+        appearsOnIndex={2}
+      />
+    ),
+    [],
+  );
+
+  const onPokeModal = () => {
+    bottomSheetRef.current?.expand();
   };
 
   return (
@@ -53,11 +76,11 @@ const HomeScreen = () => {
           </Text>
 
           <View style={styles.pockeList}>
-            <PockeCard />
-            <PockeCard />
-            <PockeCard />
-            <PockeCard />
-            <PockeCard />
+            <PockeCard onPress={onPokeModal} />
+            <PockeCard onPress={onPokeModal} />
+            <PockeCard onPress={onPokeModal} />
+            <PockeCard onPress={onPokeModal} />
+            <PockeCard onPress={onPokeModal} />
           </View>
 
           <View style={styles.loadMore}>
@@ -65,6 +88,18 @@ const HomeScreen = () => {
           </View>
         </ImageBackground>
       </ScrollView>
+
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={-1}
+        snapPoints={snapPoints}
+        backdropComponent={renderBackdrop}
+        onChange={handleSheetChanges}
+        enablePanDownToClose>
+        <View style={styles.contentContainer}>
+          <Text>Awesome 🎉</Text>
+        </View>
+      </BottomSheet>
     </View>
   );
 };
@@ -158,5 +193,9 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     textAlign: 'center',
     color: COLORS.globalGrayDarker,
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
   },
 });

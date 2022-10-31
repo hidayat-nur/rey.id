@@ -1,12 +1,19 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {memo} from 'react';
 import {IMG} from '../assets/images';
 import {COLORS} from '../styles/colors';
 import TypeCard from './TypeCard';
 
-const PockeCard = () => {
+interface IPockeCard {
+  onPress: () => void;
+}
+
+const PockeCard = ({onPress}: IPockeCard) => {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity
+      activeOpacity={0.85}
+      onPress={onPress}
+      style={styles.card}>
       <Image source={IMG.placeholder} style={styles.pockeIMG} />
       <Text style={styles.pockeNumber}>#001</Text>
       <Text style={styles.pockeName}>Poke Name</Text>
@@ -16,7 +23,7 @@ const PockeCard = () => {
         <TypeCard index={2} />
         <TypeCard index={3} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
