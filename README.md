@@ -1,17 +1,17 @@
-# Boilerplate App
+# Rey.id
 
 ## Getting Started
 ### 1. Clone this repo
 ```
-$ git clone https://github.com/hidayat-nur/RNBoilerplate.git
+$ git clone https://github.com/hidayat-nur/rey.id.git
 ```
 or 
 ```
-ssh: git@github.com:hidayat-nur/RNBoilerplate.git
+ssh: git@github.com:hidayat-nur/rey.id.git
 ```
 ### 2. Install & Setup
 ```
-$ cd RNBoilerplate
+$ cd rey.id
 
 $ yarn install
 
@@ -29,11 +29,3 @@ $ react-native run-android
 
 ## Pages
 #### 1. Home
-
-
-## apk file
-https://girlsfrontline.fandom.com/wiki/Dummy_Link
-
-
-## Screenshoot
-![screenshoot app](https://dummyimage.com/300/09f/fff.png)
